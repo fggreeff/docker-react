@@ -1,0 +1,15 @@
+language: generic 
+sudo: required
+# Tell travis we need a copy of docker
+services: 
+    - docker
+
+# Build image using Dockerfile.dev (Running Test)
+before_install:
+    - docker build -t fgreeff/docker-react-ui  -f Dockerfile.dev .
+
+# Tell travis how to run our tests
+script:
+    - docker run -e CI=true fgreeff/docker-react-ui npm run test
+
+# How to deploy project to AWS
